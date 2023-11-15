@@ -30,6 +30,22 @@ public class ComputeOffering {
     @JoinColumn(name = "compute_resource_id_sequence", nullable = false)
     private ComputeResource computeResource;
 
+    @OneToOne
+    @JoinColumn(name = "transaction_id_sequence", nullable = true)
+    private Transaction currentTransaction;
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public Transaction getCurrentTransaction() {
+        return currentTransaction;
+    }
+
+    public void setCurrentTransaction(Transaction currentTransaction) {
+        this.currentTransaction = currentTransaction;
+    }
+
     @OneToMany(mappedBy = "computeOffering")
     private List<Transaction> transactions;
 

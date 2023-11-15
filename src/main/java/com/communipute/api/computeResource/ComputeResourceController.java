@@ -1,26 +1,32 @@
 package com.communipute.api.computeResource;
 
+import com.communipute.api.dto.ComputeResourceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/computeResource")
+@RequestMapping(path = "computeResource")
 public class ComputeResourceController {
 
-    private final ComputeResourceService computeResource;
+    private final ComputeResourceService computeResourceService;
 
     @Autowired
     public ComputeResourceController(ComputeResourceService computeResource) {
-        this.computeResource = computeResource;
+        this.computeResourceService = computeResource;
     }
 
     @GetMapping
-    public List<ComputeResource> getUsers() {
-        return computeResource.getComputeResource();
+    public List<ComputeResource> getComputeResources() {
+        return computeResourceService.getComputeResource();
+    }
+
+    @PostMapping
+    public ResponseEntity<ComputeResource> registerNewComputeResource(@RequestBody ComputeResourceDTO computeResourceDTO) {
+        ComputeResource computeResource = computeResourceService.createComputeResource(computeResourceDTO);
+        return ResponseEntity.ok(computeResource);
     }
 
 }
