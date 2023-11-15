@@ -36,7 +36,7 @@ public class TransactionController {
     }
 
     // TODO: Validate whether poster has authority over the transactionID via JWT probably
-    @PostMapping(path = "postWorkload/{transactionID")
+    @PostMapping(path = "postWorkload/{transactionID}")
     public ResponseEntity<TransactionPollDTO> postWorkload(@RequestBody PostingWorkloadDTO workload,
                                                            @PathVariable Integer transactionID) {
         TransactionPollDTO transactionPollDTO = transactionService.postWorkload(workload, transactionID);

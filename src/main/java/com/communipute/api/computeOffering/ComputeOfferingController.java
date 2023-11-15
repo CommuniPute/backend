@@ -44,7 +44,7 @@ public class ComputeOfferingController {
     }
 
     // TODO: Instead of returning a compute offering, create a new DTO
-    @PutMapping(path = "{computeOfferId}")
+    @PutMapping(path = "request/{computeOfferId}")
     public ResponseEntity<ComputeOffering> claimComputeOffering(@PathVariable("computeOfferId") Integer computeOfferId,
                                                                 Integer endUserId) {
         ComputeOffering computeOffering = computeOfferingService.claimComputeOffering(computeOfferId, endUserId);
