@@ -1,19 +1,39 @@
-package com.example.communipute.computeOffering;
+package com.communipute.api.computeOffering;
 
-import com.example.communipute.computeResource.ComputeResource;
-import com.example.communipute.utils.ComputeOfferingStatus;
+import com.communipute.api.computeResource.ComputeResource;
+import com.communipute.api.transaction.Transaction;
+import com.communipute.api.utils.ComputeOfferingStatus;
+import jakarta.persistence.*;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
+@Entity
 public class ComputeOffering {
 
-    private Long id;
+    @Id
+    @SequenceGenerator(
+            name = "compute_offering_id_sequence",
+            sequenceName = "compute_offering_id_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "compute_offering_id_sequence"
+    )
+
+    private Integer id;
     private OffsetDateTime timeAvailable;
     private ComputeOfferingStatus status;
     private String filters;
+    @ManyToOne
+    @JoinColumn(name = "compute_resource_id_sequence", nullable = false)
     private ComputeResource computeResource;
 
-    public ComputeOffering(Long id,
+    @OneToMany(mappedBy = "computeOffering")
+    private List<Transaction> transactions;
+
+    public ComputeOffering(Integer id,
                            OffsetDateTime timeAvailable,
                            ComputeOfferingStatus status,
                            String filters,
@@ -35,11 +55,15 @@ public class ComputeOffering {
         this.computeResource = computeResource;
     }
 
-    public Long getId() {
+    public ComputeOffering() {
+
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

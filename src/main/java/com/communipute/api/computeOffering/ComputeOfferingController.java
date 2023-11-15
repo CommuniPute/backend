@@ -1,4 +1,4 @@
-package com.example.communipute.computeOffering;
+package com.communipute.api.computeOffering;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

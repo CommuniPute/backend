@@ -1,4 +1,4 @@
-package com.example.communipute.computeResource;
+package com.communipute.api.computeResource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

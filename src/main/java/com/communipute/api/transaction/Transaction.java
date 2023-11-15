@@ -1,15 +1,33 @@
-package com.example.communipute.transaction;
+package com.communipute.api.transaction;
 
-import com.example.communipute.computeOffering.ComputeOffering;
-import com.example.communipute.user.User;
-import com.example.communipute.utils.TransactionStatus;
+import com.communipute.api.computeOffering.ComputeOffering;
+import com.communipute.api.utils.TransactionStatus;
+import com.communipute.api.endUser.EndUser;
+import jakarta.persistence.*;
 
 import java.time.OffsetDateTime;
 
+@Entity
 public class Transaction {
 
-    private Long id;
-    private User requestingUser;
+    @Id
+    @SequenceGenerator(
+            name = "transaction_id_sequence",
+            sequenceName = "transaction_id_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "transaction_id_sequence"
+    )
+
+
+    private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "end_user_id_sequence", nullable = false)
+    private EndUser requestingUser;
+    @ManyToOne
+    @JoinColumn(name = "compute_offering_id_sequence", nullable = false)
     private ComputeOffering computeOffering;
     // Consider making this its own object?
     private String workload;
@@ -18,8 +36,8 @@ public class Transaction {
     private String stdout;
     private TransactionStatus status;
 
-    public Transaction(Long id,
-                       User requestingUser,
+    public Transaction(Integer id,
+                       EndUser requestingUser,
                        ComputeOffering computeOffering,
                        String workload,
                        OffsetDateTime terminatingTime,
@@ -36,7 +54,7 @@ public class Transaction {
         this.status = status;
     }
 
-    public Transaction(User requestingUser,
+    public Transaction(EndUser requestingUser,
                        ComputeOffering computeOffering,
                        String workload,
                        OffsetDateTime terminatingTime,
@@ -52,19 +70,23 @@ public class Transaction {
         this.status = status;
     }
 
-    public Long getId() {
+    public Transaction() {
+
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public User getRequestingUser() {
+    public EndUser getRequestingUser() {
         return requestingUser;
     }
 
-    public void setRequestingUser(User requestingUser) {
+    public void setRequestingUser(EndUser requestingUser) {
         this.requestingUser = requestingUser;
     }
 

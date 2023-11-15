@@ -1,30 +1,59 @@
-package com.example.communipute.user;
+package com.communipute.api.endUser;
 
-public class User {
+import com.communipute.api.computeResource.ComputeResource;
+import com.communipute.api.transaction.Transaction;
+import jakarta.persistence.*;
 
-    private Long id;
+import java.util.List;
+
+// Renamed data model to EndUser as User is a reserved keyword in PostgreSQL
+@Entity
+public class EndUser {
+
+    @Id
+    @SequenceGenerator(
+            name = "end_user_id_sequence",
+            sequenceName = "end_user_id_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "end_user_id_sequence"
+    )
+    private Integer id;
     private String username;
     private String password;
     private String email;
 
-    public User(Long id, String username, String password, String email) {
+    @OneToMany(mappedBy = "requestingUser")
+    private List<Transaction> transactions;
+
+    @OneToMany(mappedBy = "offeringUser")
+    private List<ComputeResource> computeResources;
+
+
+    public EndUser() {
+
+    }
+
+    public EndUser(Integer id, String username, String password, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
     }
 
-    public User(String username, String password, String email) {
+    public EndUser(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

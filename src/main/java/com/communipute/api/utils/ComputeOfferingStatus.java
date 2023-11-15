@@ -1,4 +1,4 @@
-package com.example.communipute.utils;
+package com.communipute.api.utils;
 
 public enum ComputeOfferingStatus {
     AVAILABLE,
