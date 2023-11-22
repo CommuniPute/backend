@@ -1,6 +1,7 @@
 package com.communipute.api.endUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,14 +17,14 @@ public class EndUserController {
         this.userService = userService;
     }
 
+    /**
+     * This method is used to get all the users in the database.
+     * TODO: Remove this method after testing
+     * @return
+     */
     @GetMapping
-    public List<EndUser> getEndUsers() {
-        return userService.getEndUsers();
-    }
-
-    @PostMapping
-    public void registerNewEndUser(@RequestBody EndUser endUser) {
-        userService.addNewEndUser(endUser);
+    public ResponseEntity<List<EndUser>> getEndUsers() {
+        return ResponseEntity.ok(userService.getEndUsers());
     }
 
 }

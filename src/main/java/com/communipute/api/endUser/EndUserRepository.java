@@ -8,4 +8,8 @@ import java.util.Optional;
 public interface EndUserRepository extends JpaRepository<EndUser, Integer> {
     @Query("SELECT s FROM EndUser s WHERE s.email = ?1")
     Optional<EndUser> findEndUserByEmail(String email);
+
+    @Query("SELECT s FROM EndUser s WHERE s.username = ?1")
+    Optional<EndUser> findEndUserByUsername(String username);
+
 }

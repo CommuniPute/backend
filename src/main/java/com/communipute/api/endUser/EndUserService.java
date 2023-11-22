@@ -25,13 +25,4 @@ public class EndUserService {
         return endUserRepository.findAll();
     }
 
-    public void addNewEndUser(EndUser endUser) {
-        Optional<EndUser> endUserOptional = endUserRepository
-                .findEndUserByEmail(endUser.getEmail());
-        if (endUserOptional.isPresent()) {
-            throw new IllegalStateException("Email taken");
-        }
-        endUserRepository.save(endUser);
-    }
-
 }
