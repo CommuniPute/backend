@@ -3,6 +3,7 @@ package com.communipute.api.transaction;
 import com.communipute.api.computeOffering.ComputeOffering;
 import com.communipute.api.utils.TransactionStatus;
 import com.communipute.api.endUser.EndUser;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.OffsetDateTime;
@@ -23,9 +24,13 @@ public class Transaction {
 
 
     private Integer id;
+
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "end_user_id_sequence", nullable = false)
     private EndUser requestingUser;
+
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "compute_offering_id_sequence", nullable = false)
     private ComputeOffering computeOffering;
@@ -34,6 +39,7 @@ public class Transaction {
     private OffsetDateTime terminatingTime;
     private String stderr;
     private String stdout;
+    @Enumerated(EnumType.STRING)
     private TransactionStatus status;
 
     public Transaction(Integer id,

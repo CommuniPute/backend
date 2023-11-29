@@ -3,6 +3,8 @@ package com.communipute.api.computeOffering;
 import com.communipute.api.computeResource.ComputeResource;
 import com.communipute.api.transaction.Transaction;
 import com.communipute.api.utils.ComputeOfferingStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.OffsetDateTime;
@@ -24,8 +26,10 @@ public class ComputeOffering {
 
     private Integer id;
     private OffsetDateTime timeAvailable;
+    @Enumerated(EnumType.STRING)
     private ComputeOfferingStatus status;
     private String filters;
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "compute_resource_id_sequence", nullable = false)
     private ComputeResource computeResource;
@@ -34,18 +38,7 @@ public class ComputeOffering {
     @JoinColumn(name = "transaction_id_sequence", nullable = true)
     private Transaction currentTransaction;
 
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public Transaction getCurrentTransaction() {
-        return currentTransaction;
-    }
-
-    public void setCurrentTransaction(Transaction currentTransaction) {
-        this.currentTransaction = currentTransaction;
-    }
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "computeOffering")
     private List<Transaction> transactions;
 
@@ -73,6 +66,18 @@ public class ComputeOffering {
 
     public ComputeOffering() {
 
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public Transaction getCurrentTransaction() {
+        return currentTransaction;
+    }
+
+    public void setCurrentTransaction(Transaction currentTransaction) {
+        this.currentTransaction = currentTransaction;
     }
 
     public Integer getId() {

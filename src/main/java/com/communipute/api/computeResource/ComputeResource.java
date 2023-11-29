@@ -2,6 +2,8 @@ package com.communipute.api.computeResource;
 
 import com.communipute.api.computeOffering.ComputeOffering;
 import com.communipute.api.endUser.EndUser;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -22,26 +24,25 @@ public class ComputeResource {
 
     private Integer id;
     private String computeDescription;
+
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "end_user_id_sequence", nullable = false)
     private EndUser offeringUser;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "computeResource")
     private List<ComputeOffering> computeOfferings;
 
-    public ComputeResource(Integer id, String computeDescription, EndUser offeringUser) {
-        this.id = id;
-        this.computeDescription = computeDescription;
-        this.offeringUser = offeringUser;
-    }
-
-    public ComputeResource(String computeDescription, EndUser offeringUser) {
-        this.computeDescription = computeDescription;
-        this.offeringUser = offeringUser;
-    }
 
     public ComputeResource() {
 
+    }
+
+    public ComputeResource(String computeDescription,
+                           EndUser offeringUser) {
+        this.computeDescription = computeDescription;
+        this.offeringUser = offeringUser;
     }
 
     public Integer getId() {

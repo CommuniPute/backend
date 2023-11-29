@@ -25,14 +25,23 @@ public class ComputeResourceService {
      * Returns a list of compute resources
      * @return
      */
-    public List<ComputeResource> getComputeResource() {
-        return computeResourceRepository.findAll();
+    public List<ComputeResource> getComputeResource(Integer userId) {
+        return computeResourceRepository.findByOfferingUserId(userId);
     }
 
-    public ComputeResource createComputeResource(ComputeResourceDTO computeResourceDTO) {
-        EndUser user = endUserRepository.findById(computeResourceDTO.getOfferingUserID())
+    /**
+     * Creates a new compute resource
+     * @param computeResourceDTO
+     * @param userId
+     * @return
+     */
+    public ComputeResource createComputeResource(ComputeResourceDTO computeResourceDTO, Integer userId) {
+        // Get user object corresponding to the userId
+        EndUser user = endUserRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+        System.out.println("Gotten to createComputeResource part");
+        // Create compute resource and save it
         ComputeResource computeResource = new ComputeResource(computeResourceDTO.getComputeDescription(),
                 user);
 

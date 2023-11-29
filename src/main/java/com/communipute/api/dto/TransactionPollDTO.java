@@ -2,6 +2,8 @@ package com.communipute.api.dto;
 
 import com.communipute.api.utils.TransactionStatus;
 
+import java.time.OffsetDateTime;
+
 public class TransactionPollDTO {
 
     private Integer transactionID;
@@ -9,14 +11,14 @@ public class TransactionPollDTO {
     private String stderr;
     private String stdout;
     private TransactionStatus status;
-    private String terminatingTime;
+    private OffsetDateTime terminatingTime;
 
     public TransactionPollDTO(Integer transactionID,
                               String workload,
                               String stderr,
                               String stdout,
                               TransactionStatus status,
-                              String terminatingTime) {
+                              OffsetDateTime terminatingTime) {
         this.transactionID = transactionID;
         this.workload = workload;
         this.stderr = stderr;
@@ -65,11 +67,11 @@ public class TransactionPollDTO {
         this.status = status;
     }
 
-    public String getTerminatingTime() {
+    public OffsetDateTime getTerminatingTime() {
         return terminatingTime;
     }
 
-    public void setTerminatingTime(String terminatingTime) {
+    public void setTerminatingTime(OffsetDateTime terminatingTime) {
         this.terminatingTime = terminatingTime;
     }
 }

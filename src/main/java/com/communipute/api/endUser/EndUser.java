@@ -4,6 +4,7 @@ import com.communipute.api.computeResource.ComputeResource;
 import com.communipute.api.token.Token;
 import com.communipute.api.transaction.Transaction;
 import com.communipute.api.utils.Role;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -35,12 +36,15 @@ public class EndUser implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "requestingUser")
     private List<Transaction> transactions;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "offeringUser")
     private List<ComputeResource> computeResources;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 
